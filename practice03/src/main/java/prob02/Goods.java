@@ -1,4 +1,4 @@
-package chapter03;
+package prob02;
 
 public class Goods {
 	public static int countOfGoods = 0;
@@ -6,7 +6,6 @@ public class Goods {
 	private String name;
 	private int price;
 	private int countStock;
-	private int countSold;
 	
 	public Goods() {
 		countOfGoods = countOfGoods + 1;
@@ -22,9 +21,7 @@ public class Goods {
 		return price;
 	}
 	public void setPrice(int price) {
-		if(0 < price) {
-			return;
-		}
+		this.price = price;
 	}
 	public int getCountStock() {
 		return countStock;
@@ -32,23 +29,9 @@ public class Goods {
 	public void setCountStock(int countStock) {
 		this.countStock = countStock;
 	}
-	public int getCountSold() {
-		return countSold;
-	}
-	public void setCountSold(int countSold) {
-		this.countSold = countSold;
-	}
+
 	public void showInfo() {
 		System.out.println(
-				"name:" + name + 
-				", price:"+ price + 
-				", countStock:" + countStock + 
-				", countSold:" + countSold);	
+				name +"(가격:"+ price + "원)이"+ countStock +"개 입고 되었습니다.");	
 	}
-	
-	public int calcDiscountPrice(int percentage){
-		return price * percentage/100;
-	}
-	
-	
 }
