@@ -1,4 +1,6 @@
-package paint;
+package com.douzone.shape;
+
+import com.douzone.i.Drawable;
 
 public abstract class Shape implements Drawable {
 	private String lineColor;

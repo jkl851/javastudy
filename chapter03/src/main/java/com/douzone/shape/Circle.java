@@ -1,4 +1,4 @@
-package paint;
+package com.douzone.shape;
 
 public class Circle extends Shape {
 	private int x1, y1;

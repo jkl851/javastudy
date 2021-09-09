@@ -1,4 +1,4 @@
-package paint;
+package com.douzone.shape;
 
 public class Triangle extends Shape {
 	private int x1, y1;
