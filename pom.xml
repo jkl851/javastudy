@@ -35,5 +35,6 @@
 		<module>chapter04</module>
 		<module>finaltest</module>
 		<module>practice05</module>
+		<module>network</module>
 	</modules>
 </project>
