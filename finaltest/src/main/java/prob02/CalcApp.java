@@ -23,12 +23,22 @@ public class CalcApp {
 			}
 			
 			int lValue = Integer.parseInt( tokens[ 0 ] );
-			int rValue = Integer.parseInt( tokens[ 1 ] );
+			int rValue = Integer.parseInt( tokens[ 2 ] );
 			
 			Arithmetic arithmetic = null;
 			
 			/* 코드 작성 */
 			
+			switch(tokens[1]) {
+			case "-": arithmetic = new Sub();
+				break;
+			case "+": arithmetic = new Add(); 
+				break;
+			case "*": arithmetic = new Mul();
+				break;	
+			case "/": arithmetic = new Div();
+				break;
+			}
 			int result = arithmetic.calculate(lValue, rValue);
 			System.out.println( ">> " + result );
 		}

@@ -1,6 +1,10 @@
 package prob01;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Gugudan {
 
@@ -48,6 +52,23 @@ public class Gugudan {
 		/* 코드 작성(수정 가능) */
 		final int COUNT_ANSWER_NUMBER = 9;
 		int[] boardNumbers = new int[COUNT_ANSWER_NUMBER];
+		Set<Integer> set = new HashSet<Integer>();
+		while (set.size() < COUNT_ANSWER_NUMBER) {
+			int l = randomize(1, 9);
+			int r = randomize(1, 9);
+			int lr = l * r;
+			if (lr == resultNumber) {
+				continue;
+			} else {
+				set.add(lr);
+			}
+		}
+		int count = 0;
+		for (int num : set) {
+			boardNumbers[count] = num;
+			count++;
+		}
+
 		return boardNumbers;
 	}
 }
