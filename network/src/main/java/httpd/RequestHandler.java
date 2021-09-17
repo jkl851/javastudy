@@ -55,6 +55,7 @@ public class RequestHandler extends Thread {
 				consoleLog("request: " + tokens[1]);
 				responseStaticResource(outputStream, tokens[1], tokens[2]);
 			} else {
+				System.out.println(tokens[0]);
 				// method : POST, PUT, DELETE, HEAD, CONNECT
 				// SimpleHttpServer 에서는 무시(400 Bad Request 처리)
 				// response400Error(outputStream, tokens[1], tokens[2]); *****과제*****
@@ -91,7 +92,11 @@ public class RequestHandler extends Thread {
 		
 		File file = new File(DOCUMENT_ROOT + url);
 		if(!file.exists()) {
-			// response404Error(outputStream, url, protocol); *****과제*****
+			// response404Error(outputStream, url, protocol); *****과제*****/login.html
+			outputStream.write( "HTTP/1.1 404 Not Found\n".getBytes( "UTF-8" ) );
+			outputStream.write( "Content-Type:text/html; charset=utf-8\n".getBytes( "UTF-8" ) );
+			outputStream.write( "\n".getBytes() );
+			outputStream.write( "<h1>페이지가 존재하지 않습니다</h1>".getBytes( "UTF-8" ) );
 			return;
 		}
 		
