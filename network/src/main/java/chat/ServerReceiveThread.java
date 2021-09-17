@@ -26,11 +26,13 @@ public class ServerReceiveThread extends Thread {
 		String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
 		int remoteHostPort = inetRemoteSocketAddress.getPort();
 		Server.log("[server] connected by client[" + remoteHostAddress + ":" + remoteHostPort + "]");
-
+		BufferedReader br;
+		PrintWriter pw;
+		
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			// PrintWriter(); ture 옵션 - flush 자동,false시 직접 튜닝
-			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 
 			while (true) {
 				String request = br.readLine();
@@ -49,9 +51,9 @@ public class ServerReceiveThread extends Thread {
 
 					doMessage(tokens[1]);
 
-				} else if ("quit".equals(tokens[0])) {
+				} else if ("exit".equals(tokens[0])) {
 					// Server.log();
-					doQuit(pw);
+					doExit(tokens[1], pw);
 
 				} else {
 
@@ -59,7 +61,7 @@ public class ServerReceiveThread extends Thread {
 				}
 
 				Server.log("received:" + request);
-				pw.println(request);
+
 			}
 		} catch (IOException e) {
 			Server.log("error:" + e);
@@ -85,7 +87,7 @@ public class ServerReceiveThread extends Thread {
 
 		// ack : acknowledge character
 		pw.println("join:ok");
-		pw.flush();
+		//pw.flush();
 	}
 
 	private void broadcast(String data) {
@@ -95,7 +97,6 @@ public class ServerReceiveThread extends Thread {
 			for (Writer writer : listWriters) {
 				PrintWriter printWriter = (PrintWriter) writer;
 				printWriter.println(data);
-				printWriter.flush();
 			}
 
 		}
@@ -113,17 +114,15 @@ public class ServerReceiveThread extends Thread {
 		broadcast(nickname + ":" + string);
 	}
 
-	private void doQuit(Writer writer) {
-		removeWriter(writer);
-
-		String data = nickname + "님이 퇴장 하였습니다.";
+	private void doExit(String name, Writer writer) {
+		String data = name + "님이 퇴장 하였습니다.";
 		broadcast(data);
+		removeWriter(writer);
 
 	}
 
 	private void removeWriter(Writer writer) {
 		listWriters.remove(writer);
-
 	}
 
 }
